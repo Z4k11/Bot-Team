@@ -1,0 +1,69 @@
+mport discord
+from discord.ext import commands
+import random
+
+intents = discord.Intents.default()
+intents.message_content = True
+client = discord.Client(intents=intents)
+
+meme_files = ['images/meme1.jpg', 'images/meme2.jpg']
+
+@client.event
+async def on_ready():
+    print(f'Kita telah masuk sebagai {client.user}')
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    if message.content.startswith('$halo'):
+        await message.channel.send("Hi!")
+
+    elif message.content.startswith('$help'):
+        await message.channel.send("$halo is a command to pretest the bot - eng ; $halo adalah command untuk mengetes bot - ind;")
+        await message.channel.send("$meme is a command for some random set of memes - eng ; $meme adalah command untuk beberapa meme-meme random - ind;")
+        await message.channel.send("$how.to.be.gud.for.the.enviroment_eng_text is a text for how to save the planet - eng;")
+        await message.channel.send("$cara.menjadi.baik.untuk.lingkungan_ind_text adalah teks untuk cara menjadi baik untuk lingkungan - ind;")
+        await message.channel.send("$how.to.be.gud.for.the.environment_eng_voicenotes is the voicenote version of $how.to.be.gud.for.the.environment_eng_text.")
+        await message.channel.send("$cara.menjadi.baik.untuk.lingkungan_ind_voicenotes adalah versi audio dari $cara.menjadi.baik.untuk.lingkungan_ind_text.")
+
+    elif message.content.startswith('$meme'):
+        selected_meme = random.choice(meme_files)
+        with open(selected_meme, 'rb') as f:
+            picture = discord.File(f)
+        await message.channel.send(file=picture)
+
+        
+    elif message.content.startswith('$how.to.be.gud.for.the.enviroment_eng_text'):
+        await message.channel.send("Sup, looking forward on how to be gud for the enviroment?")
+        await message.channel.send("As a tennager?")
+        await message.channel.send("First, turn off electrical appliances;")
+        await message.channel.send("Secondly, seperate the 3 types of trash, Dangerous, Anorganic, Organic;")
+        await message.channel.send("Third, reduce usage of plastic items;")
+        await message.channel.send("Fourth, reduce usage of motorized vehicles;")
+        await message.channel.send("Fifth, reduce water usage;")
+        await message.channel.send("Sixth, plant some trees on empty lands.")
+
+    elif message.content.startswith('$cara.menjadi.baik.untuk.lingkungan_ind_text'):
+        await message.channel.send("Halo, mau tau cara jadi baik untuk lingkungan?")
+        await message.channel.send("Sebagai seorang remaja?")
+        await message.channel.send("Langkah pertama, matikan alat elektronik saat tidak digunakan;")
+        await message.channel.send("Langkah kedua, pisahkan 3 tipe sampah, Berbahaya, Anorganik, dan Organik")
+        await message.channel.send("Langkah ketiga, kurangi penggunaan benda-benda plastik;")
+        await message.channel.send("Langkah keempat, kurangi penggunaan kendaraan bermotor;")
+        await message.channel.send("Langkah kelima, kurangi penggunaan air berlebih;")
+        await message.channel.send("Langkah keenam, menanam pohon di lahan yang gundul.")
+        
+    # elif message.content.startswith('$cara.menjadi.baik.untuk.lingkungan_eng_voicenotes'):
+    #     with open('voicenotes/', "rb") as f:
+    #         voicenotes = discord.File(f)
+    #     await message.channel.send(file=voicenotes)
+
+    # elif message.content.startswith('$cara.menjadi.baik.untuk.lingkungan_ind_voicenotes'):
+    #     with open('voicenotes/', "rb") as f:
+    #         voicenotes = discord.File(f)
+    #     await message.channel.send(file=voicenotes)
+        
+    
+
+client.run("")
